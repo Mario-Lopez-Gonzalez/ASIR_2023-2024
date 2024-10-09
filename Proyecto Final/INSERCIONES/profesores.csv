@@ -1,0 +1,16 @@
+idprofesores,codigo,nombre,apellidos,tlfn,email
+NULL,1,"Eva Maria",Ugarte,645744500,emugarte@egibide.org
+NULL,2,Blanca,Isasi-Isasmendi,678901234,bisasi@egibide.org
+NULL,3,Ugaitz,"Naya Rodriguez",645678901,unaya@egibide.org
+NULL,4,"Maria Nieves",Ruiz,689012345,"mnruiz@egibide.org "
+NULL,5,Mikel,"Martinez de zuazo",667890123,mmartinezdezuazo@egibide.org
+NULL,6,Santiago,Herrera,612345678,santiago.herrera@egibide.org
+NULL,7,Ana,Martinez,687654321,ana.martinez@egibide.org
+NULL,8,Javier,Lopez,698765432,javier.lopez@egibide.org
+NULL,9,Lucia,Garcia,686781234,lucia.garcia@egibide.org
+NULL,10,Diego,Rodriguez,623456789,diego.rodriguez@egibide.org
+NULL,11,Valentina,Perez,643219876,valentina.perez@egibide.org
+NULL,12,Andres,Fernandez,687654321,andres.fernandez@egibide.org
+NULL,13,Maria,Sanchez,632109876,maria.sanchez@egibide.org
+NULL,14,Gabriel,Ramirez,665432109,gabriel.ramirez@egibide.org
+NULL,15,Carla,Gonzalez," 621098765",carla.gonzalez@egibide.org

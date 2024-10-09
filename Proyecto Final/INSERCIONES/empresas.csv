@@ -1,0 +1,11 @@
+idempresas,razon_social,nif,titularidad,direccion,poblacion,provincia,codigo_postal,tlfn,fax,email,representante,tlfn_rep,email_rep,p_contacto,tlfn_contacto,email_contacto,actividad,cnae,n_trabajadores,empresascol,kms,horario,convenio
+1,"Constructora ABC S.A.",A12345678,Privada,"Calle Principal 123","Ciudad Real","Ciudad Real",13001,123-456-7890,123-456-7891,info@constructoraabc.com,"Juan Pérez",987-654-3210,juanperez@constructoraabc.com,"María Gómez",555-555-5555,mgomez@constructoraabc.com,"Construcción de Edificios",4121,50,NULL,5,"9:00 - 18:00",Sí
+2,"Transportes Veloz S.L.",B87654321,Privada,"Avenida del Transporte 456",Barcelona,Barcelona,08001,222-333-4444,222-333-4445,info@transportesveloz.com,"Ana García",666-777-8888,anagarcia@transportesveloz.com,"Carlos López",111-222-3333,clopez@transportesveloz.com,"Transporte de Mercancías",4941,30,NULL,10,"8:00 - 17:00",Sí
+3,"Hotel Costa Brava S.A.",C13579246,Privada,"Paseo Marítimo 789",Girona,Girona,17001,777-888-9999,777-888-9998,info@hotelcostabrava.com,"Laura Martínez",444-555-6666,lauramartinez@hotelcostabrava.com,"José Pérez",333-444-5555,jperez@hotelcostabrava.com,Hostelería,5510,25,NULL,2,"24 horas",Sí
+4,"Consultoría Excelencia S.L.",D98765432,Privada,"Plaza de la Consultoría 135",Madrid,Madrid,28001,444-555-6666,444-555-6667,info@consultoriaexcelencia.com,"Pablo González",111-222-3333,pablogonzalez@consultoriaexcelencia.com,"Marta Hernández",888-999-0000,mhernandez@consultoriaexcelencia.com,"Consultoría Empresarial",7022,15,NULL,3,"9:00 - 19:00",Sí
+5,"Comercializadora Delta S.A.",E24681357,Pública,"Carrera Comercial 789",Valencia,Valencia,46001,555-666-7777,555-666-7778,info@comercializadoradelta.com,"Sonia Fernández",777-888-9999,soniafernandez@comercializadoradelta.com,"Juan Rodríguez",222-333-4444,jrodriguez@comercializadoradelta.com,"Comercialización de Productos",4619,40,NULL,6,"8:30 - 18:30",No
+6,NULL,NULL,,,,,,,,,,,,,,,,,,NULL,,,Sí
+7,NULL,NULL,,,,,,,,,,,,,,,,,,NULL,,,
+8,NULL,NULL,,,,,,,,,,,,,,,,,,NULL,,,
+9,NULL,,,,,,,,,,,,,,,,,,,NULL,,,
+10,NULL,,,,,,,,,,,,,,,,,,,NULL,,,

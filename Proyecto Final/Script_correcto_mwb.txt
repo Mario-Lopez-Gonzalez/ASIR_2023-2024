@@ -1,0 +1,525 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ftc
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ftc
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ftc` DEFAULT CHARACTER SET utf8mb4 ;
+USE `ftc` ;
+
+-- -----------------------------------------------------
+-- Table `ftc`.`profesores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`profesores` (
+  `idprofesores` INT(4) NOT NULL AUTO_INCREMENT,
+  `codigo` INT(4) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellidos` VARCHAR(45) NOT NULL,
+  `tlfn` VARCHAR(12) NULL,
+  `email` VARCHAR(45) NULL,
+  PRIMARY KEY (`idprofesores`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idprofesores` ASC) ,
+  UNIQUE INDEX `codigo_UNIQUE` (`codigo` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`fam_pro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`fam_pro` (
+  `idfam_pro` INT(3) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `coordinador` INT(4) NOT NULL,
+  PRIMARY KEY (`idfam_pro`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idfam_pro` ASC) ,
+  INDEX `fk_fam_pro_profesores_idx` (`coordinador` ASC) ,
+  CONSTRAINT `fk_fam_pro_profesores`
+    FOREIGN KEY (`coordinador`)
+    REFERENCES `ftc`.`profesores` (`idprofesores`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`cic_form`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`cic_form` (
+  `idcic_form` INT(3) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `abreviatura` VARCHAR(10) NOT NULL,
+  `nivel` VARCHAR(15) NOT NULL,
+  `fam_pro` INT(3) NOT NULL,
+  PRIMARY KEY (`idcic_form`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idcic_form` ASC) ,
+  INDEX `fk_cic_form_fam_pro1_idx` (`fam_pro` ASC) ,
+  CONSTRAINT `fk_cic_form_fam_pro1`
+    FOREIGN KEY (`fam_pro`)
+    REFERENCES `ftc`.`fam_pro` (`idfam_pro`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`empresas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`empresas` (
+  `idempresas` INT(4) NOT NULL AUTO_INCREMENT,
+  `razon_social` VARCHAR(45) NOT NULL,
+  `nif` VARCHAR(12) NOT NULL,
+  `titularidad` VARCHAR(15) NOT NULL,
+  `direccion` VARCHAR(45) NOT NULL,
+  `poblacion` VARCHAR(45) NOT NULL,
+  `provincia` VARCHAR(45) NOT NULL,
+  `codigo_postal` VARCHAR(5) NOT NULL,
+  `tlfn` VARCHAR(15) NULL,
+  `fax` VARCHAR(15) NULL,
+  `email` VARCHAR(45) NULL,
+  `representante` VARCHAR(45) NULL,
+  `tlfn_rep` VARCHAR(45) NULL,
+  `email_rep` VARCHAR(45) NULL,
+  `p_contacto` VARCHAR(45) NULL,
+  `tlfn_contacto` VARCHAR(45) NULL,
+  `email_contacto` VARCHAR(45) NULL,
+  `actividad` VARCHAR(45) NULL,
+  `cnae` VARCHAR(45) NULL,
+  `n_trabajadores` VARCHAR(10) NULL,
+  `empresascol` VARCHAR(45) NULL,
+  `kms` VARCHAR(45) NULL,
+  `horario` VARCHAR(45) NULL,
+  `convenio` VARCHAR(2) NOT NULL,
+  PRIMARY KEY (`idempresas`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idempresas` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`alumnos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`alumnos` (
+  `idalumnos` INT(5) NOT NULL AUTO_INCREMENT,
+  `dni` VARCHAR(12) NOT NULL,
+  `nombre` VARCHAR(25) NOT NULL,
+  `apellidos` VARCHAR(45) NOT NULL,
+  `fec_nac` VARCHAR(20) NOT NULL,
+  `tlfn` VARCHAR(12) NULL,
+  `email` VARCHAR(45) NULL,
+  `euskera` VARCHAR(10) NOT NULL,
+  `coche` VARCHAR(2) NOT NULL,
+  `carnet` VARCHAR(2) NOT NULL,
+  `comentario` VARCHAR(400) NULL,
+  PRIMARY KEY (`idalumnos`),
+  UNIQUE INDEX `idalumnos_UNIQUE` (`idalumnos` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`historico`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`historico` (
+  `idhistorico` INT(3) NOT NULL AUTO_INCREMENT,
+  `curso` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idhistorico`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idhistorico` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`responsables`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`responsables` (
+  `idresponsable` INT(3) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `tlfn` VARCHAR(15) NULL,
+  `email` VARCHAR(45) NULL,
+  `empresa` INT(4) NOT NULL,
+  PRIMARY KEY (`idresponsable`),
+  UNIQUE INDEX `idempresa_UNIQUE` (`empresa`) ,
+  INDEX `fk_responsables_empresas1_idx` (`empresa` ASC) ,
+  CONSTRAINT `fk_responsables_empresas1`
+    FOREIGN KEY (`empresa`)
+    REFERENCES `ftc`.`empresas` (`idempresas`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`asignaciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`asignaciones` (
+  `idasignaciones` INT(5) NOT NULL AUTO_INCREMENT,
+  `horario` VARCHAR(45) NOT NULL,
+  `observaciones` VARCHAR(45) NULL,
+  `trabajo` VARCHAR(45) NULL,
+  `contrato` VARCHAR(2) NOT NULL,
+  `curso` INT(3) NOT NULL,
+  `alumno` INT(5) NOT NULL,
+  `responsable` INT(3) NOT NULL,
+  `empresa` INT(4) NOT NULL,
+  PRIMARY KEY (`idasignaciones`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idasignaciones` ASC) ,
+  INDEX `fk_asignaciones_historico1_idx` (`curso` ASC) ,
+  INDEX `fk_asignaciones_alumnos1_idx` (`alumno` ASC) ,
+  INDEX `fk_asignaciones_responsables2_idx` (`responsable` ASC) ,
+  INDEX `fk_asignaciones_empresas2_idx` (`empresa` ASC) ,
+  CONSTRAINT `fk_asignaciones_historico1`
+    FOREIGN KEY (`curso`)
+    REFERENCES `ftc`.`historico` (`idhistorico`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_asignaciones_alumnos1`
+    FOREIGN KEY (`alumno`)
+    REFERENCES `ftc`.`alumnos` (`idalumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_asignaciones_responsables2`
+    FOREIGN KEY (`responsable`)
+    REFERENCES `ftc`.`responsables` (`idresponsable`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_asignaciones_empresas2`
+    FOREIGN KEY (`empresa`)
+    REFERENCES `ftc`.`empresas` (`idempresas`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`usuarios` (
+  `idusuarios` INT(3) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(25) NOT NULL,
+  `password` VARCHAR(25) NOT NULL,
+  `tipo_usuario` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`idusuarios`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idusuarios` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`grupos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`grupos` (
+  `idgrupos` INT(4) NOT NULL AUTO_INCREMENT,
+  `abreviatura` VARCHAR(15) NOT NULL,
+  `denominacion` VARCHAR(45) NULL,
+  `cic_form` INT(3) NOT NULL,
+  `tutor_fct` INT(4) NOT NULL,
+  `tutor_grupo` INT(4) NOT NULL,
+  PRIMARY KEY (`idgrupos`),
+  UNIQUE INDEX `idfamp_UNIQUE` (`idgrupos` ASC) ,
+  INDEX `fk_grupos_cic_form1_idx` (`cic_form` ASC) ,
+  INDEX `fk_grupos_profesores1_idx` (`tutor_grupo` ASC) ,
+  INDEX `fk_grupos_profesores2_idx` (`tutor_fct` ASC) ,
+  CONSTRAINT `fk_grupos_cic_form1`
+    FOREIGN KEY (`cic_form`)
+    REFERENCES `ftc`.`cic_form` (`idcic_form`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_grupos_profesores1`
+    FOREIGN KEY (`tutor_grupo`)
+    REFERENCES `ftc`.`profesores` (`idprofesores`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_grupos_profesores2`
+    FOREIGN KEY (`tutor_fct`)
+    REFERENCES `ftc`.`profesores` (`idprofesores`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `ftc`.`alumnos_has_grupos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ftc`.`alumnos_has_grupos` (
+  `idalumnos` INT(5) NOT NULL,
+  `idgrupos` INT(4) NOT NULL,
+  `curso` INT(3) NOT NULL,
+  PRIMARY KEY (`idalumnos`, `idgrupos`),
+  INDEX `fk_alumnos_has_grupos_grupos1_idx` (`idgrupos` ASC) ,
+  INDEX `fk_alumnos_has_grupos_alumnos1_idx` (`idalumnos` ASC) ,
+  INDEX `fk_alumnos_has_grupos_historico1_idx` (`curso` ASC) ,
+  CONSTRAINT `fk_alumnos_has_grupos_alumnos1`
+    FOREIGN KEY (`idalumnos`)
+    REFERENCES `ftc`.`alumnos` (`idalumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_alumnos_has_grupos_grupos1`
+    FOREIGN KEY (`idgrupos`)
+    REFERENCES `ftc`.`grupos` (`idgrupos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_alumnos_has_grupos_historico1`
+    FOREIGN KEY (`curso`)
+    REFERENCES `ftc`.`historico` (`idhistorico`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`profesores`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (1, 1, 'Eva Maria', 'Ugarte', '645744500', 'emugarte@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (2, 2, 'Blanca', 'Isasi-Isasmendi', '678901234', 'bisasi@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (3, 3, 'Ugaitz', 'Naya Rodriguez', '645678901', 'unaya@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (4, 4, 'Maria Nieves', 'Ruiz', '689012345', 'mnruiz@egibide.org ');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (5, 5, 'Mikel', 'Martinez de zuazo', '667890123', 'mmartinezdezuazo@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (6, 6, 'Santiago', 'Herrera', '612345678', 'santiago.herrera@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (7, 7, 'Ana', 'Martinez', '687654321', 'ana.martinez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (8, 8, 'Javier', 'Lopez', '698765432', 'javier.lopez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (9, 9, 'Lucia', 'Garcia', '686781234', 'lucia.garcia@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (10, 10, 'Diego', 'Rodriguez', '623456789', 'diego.rodriguez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (11, 11, 'Valentina', 'Perez', '643219876', 'valentina.perez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (12, 12, 'Andres', 'Fernandez', '687654321', 'andres.fernandez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (13, 13, 'Maria', 'Sanchez', '632109876', 'maria.sanchez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (14, 14, 'Gabriel', 'Ramirez', '665432109', 'gabriel.ramirez@egibide.org');
+INSERT INTO `ftc`.`profesores` (`idprofesores`, `codigo`, `nombre`, `apellidos`, `tlfn`, `email`) VALUES (15, 15, 'Carla', 'Gonzalez', '621098765', 'carla.gonzalez@egibide.org');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`fam_pro`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (1, 'Industrias Alimentarias', 1);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (2, 'Informatica y Comunicaciones', 1);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (3, 'Comercio y Marketing', 2);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (4, 'Electricidad y Electronica', 2);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (5, 'Fabricacion Mecanica', 2);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (6, 'Administracion y Gestion', 3);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (7, 'Hosteleria y Turismo', 3);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (8, 'Imagen Personal', 4);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (9, 'Instalacion y Mantenimiento', 4);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (10, 'Sanidad', 5);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (11, 'Servicios Socioculturales y a la Comunidad', 5);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (12, 'Transporte y Mantenimiento de Vehiculos', 6);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (13, 'Quimica', 6);
+INSERT INTO `ftc`.`fam_pro` (`idfam_pro`, `nombre`, `coordinador`) VALUES (14, 'Seguridad y Medioambiente', 7);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`cic_form`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (8, 'Actividades de panaderia y pasteleria', 'APP', 'FPB', 1);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (9, 'Informatica y Comunicaciones', 'IC', 'FPB', 2);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (10, 'Servicios Comerciales', 'SEC', 'FPB', 3);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (11, 'Electricidad y Electronica', 'EE', 'FPB', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (12, 'Fabricacion Mecanica / Especialidad Soldadura', 'FM-SC', 'FPB', 5);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (13, 'Fabricacion Mecanica / Especialidad Mecanizado', 'FM-EM', 'FPB', 5);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (14, 'Instalaciones Electrotecnicas y Mecanica', 'IEM', 'FPB', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (16, 'Instalaciones Electricas y Automaticas', 'IEA', 'GM', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (17, 'Mecanizado', 'MEC', 'GM', 5);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (18, 'Soldadura y Caldereria', 'SOC', 'GM', 5);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (19, 'Cocina y Gastronomia', 'CG', 'GM', 7);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (20, 'Servicios en Restauracion', 'SR', 'GM', 7);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (21, 'Peluqueria y Cosmetica Capilar', 'PCC', 'GM', 8);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (22, 'Sistemas Microinformaticos y Redes', 'SMR', 'GM', 2);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (23, 'Mantenimiento Electromecanico', 'ME', 'GM', 9);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (24, 'Cuidados Auxiliares de Enfermeria', 'CAE', 'GM', 10);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (25, 'Atencion a Personas en Situacion de Dependencia', 'APSD', 'GM', 11);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (26, 'Electromecanica de Vehiculos Automoviles', 'EVA', 'GM', 12);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (27, 'Administracion y Finanzas', 'AF', 'GS', 6);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (28, 'Asistencia a la Direccion', 'AD', 'GS', 6);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (29, 'Marketing y Publicidad', 'MP', 'GS', 3);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (30, 'Automatizacion y Robotica Industrial', 'ARI', 'GS', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (31, 'Mantenimiento Electronico', 'ME', 'GS', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (32, 'Sistemas Electrotecnicos y Automatizados', 'SEA', 'GS', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (33, 'Sistemas de Telecomunicaciones e Informatico', 'STI', 'GS', 4);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (34, 'Diseno en Fabricacion Mecanica', 'DFM', 'GS', 5);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (35, 'Programacion de la Produccion en Fabricacion Mecan', 'PPFM', 'GS', 5);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (36, 'Direccion de Cocina', 'DC', 'GS', 7);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (37, 'Estetica Integral y Bienestar', 'EIB', 'GS', 8);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (38, 'Administracion de Sistemas Informaticos en Red', 'ASIR', 'GS', 2);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (39, 'Desarrollo de Aplicaciones Multiplataforma', 'DAM', 'GS', 2);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (40, 'Desarrollo de Aplicaciones Web', 'DAW', 'GS', 2);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (41, 'Mecatronica Industrial', 'MI', 'GS', 9);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (42, 'Laboratorio de Analisis y Control de Calidad', 'LACC', 'GS', 13);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (43, 'Laboratorio Clinico y Biomedico', 'LCB', 'GS', 10);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (44, 'Ortoprotesis y Productos de Apoyo', 'OPA', 'GS', 10);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (45, 'Educacion y Control Ambiental', 'ECA', 'GS', 14);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (46, 'Integracion Social', 'IS', 'GS', 11);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (47, 'Promocion de Igualdad de Genero', 'PIG', 'GS', 11);
+INSERT INTO `ftc`.`cic_form` (`idcic_form`, `nombre`, `abreviatura`, `nivel`, `fam_pro`) VALUES (48, 'Automocion', 'A', 'GS', 12);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`empresas`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`empresas` (`idempresas`, `razon_social`, `nif`, `titularidad`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `tlfn`, `fax`, `email`, `representante`, `tlfn_rep`, `email_rep`, `p_contacto`, `tlfn_contacto`, `email_contacto`, `actividad`, `cnae`, `n_trabajadores`, `empresascol`, `kms`, `horario`, `convenio`) VALUES (1, 'Constructora ABC S.A.', 'A12345678', 'Privada', 'Calle Principal 123', 'Ciudad Real', 'Ciudad Real', '13001', '1234567890', '1234567891', 'info@constructoraabc.com', 'Juan Pérez', '9876543210', 'juanperez@constructoraabc.com', 'María Gómez', '5555555555', 'mgomez@constructoraabc.com', 'Construcción de Edificios', '4121', '50', NULL, '5', '09:00 - 18:00', 'Sí');
+INSERT INTO `ftc`.`empresas` (`idempresas`, `razon_social`, `nif`, `titularidad`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `tlfn`, `fax`, `email`, `representante`, `tlfn_rep`, `email_rep`, `p_contacto`, `tlfn_contacto`, `email_contacto`, `actividad`, `cnae`, `n_trabajadores`, `empresascol`, `kms`, `horario`, `convenio`) VALUES (2, 'Transportes Veloz S.L.', 'B87654321', 'Privada', 'Avenida del Transporte 456', 'Barcelona', 'Barcelona', '08001', '2223334444', '2223334445', 'info@transportesveloz.com', 'Ana García', '6667778888', 'anagarcia@transportesveloz.com', 'Carlos López', '1112223333', 'clopez@transportesveloz.com', 'Transporte de Mercancías', '4941', '30', NULL, '10', '08:00 - 17:00', 'Sí');
+INSERT INTO `ftc`.`empresas` (`idempresas`, `razon_social`, `nif`, `titularidad`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `tlfn`, `fax`, `email`, `representante`, `tlfn_rep`, `email_rep`, `p_contacto`, `tlfn_contacto`, `email_contacto`, `actividad`, `cnae`, `n_trabajadores`, `empresascol`, `kms`, `horario`, `convenio`) VALUES (3, 'Hotel Costa Brava S.A.', 'C13579246', 'Privada', 'Paseo Marítimo 789', 'Girona', 'Girona', '17001', '7778889999', '7778889998', 'info@hotelcostabrava.com', 'Laura Martínez', '4445556666', 'lauramartinez@hotelcostabrava.com', 'José Pérez', '3334445555', 'jperez@hotelcostabrava.com', 'Hostelería', '5510', '25', NULL, '2', '24 horas', 'Sí');
+INSERT INTO `ftc`.`empresas` (`idempresas`, `razon_social`, `nif`, `titularidad`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `tlfn`, `fax`, `email`, `representante`, `tlfn_rep`, `email_rep`, `p_contacto`, `tlfn_contacto`, `email_contacto`, `actividad`, `cnae`, `n_trabajadores`, `empresascol`, `kms`, `horario`, `convenio`) VALUES (4, 'Consultoría Excelencia S.L.', 'D98765432', 'Privada', 'Plaza de la Consultoría 135', 'Madrid', 'Madrid', '28001', '4445556666', '4445556667', 'info@consultoriaexcelencia.com', 'Pablo González', '1112223333', 'pablogonzalez@consultoriaexcelencia.com', 'Marta Hernández', '8889990000', 'mhernandez@consultoriaexcelencia.com', 'Consultoría Empresarial', '7022', '15', NULL, '3', '09:00 - 19:00', 'Sí');
+INSERT INTO `ftc`.`empresas` (`idempresas`, `razon_social`, `nif`, `titularidad`, `direccion`, `poblacion`, `provincia`, `codigo_postal`, `tlfn`, `fax`, `email`, `representante`, `tlfn_rep`, `email_rep`, `p_contacto`, `tlfn_contacto`, `email_contacto`, `actividad`, `cnae`, `n_trabajadores`, `empresascol`, `kms`, `horario`, `convenio`) VALUES (5, 'Comercializadora Delta S.A.', 'E24681357', 'Pública', 'Carrera Comercial 789', 'Valencia', 'Valencia', '46001', '5556667777', '5556667778', 'info@comercializadoradelta.com', 'Sonia Fernández', '7778889999', 'soniafernandez@comercializadoradelta.com', 'Juan Rodríguez', '2223334444', 'jrodriguez@comercializadoradelta.com', 'Comercialización de Productos', '4619', '40', NULL, '6', '08:30 - 18:30', 'No');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`alumnos`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (38, '58005875J', 'Ane', 'Fernandez de retana', '01/11/2004', '644975433', 'ane.fernandezderetana@ikasle.egibide.org', 'b2', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (39, '24554279Z', 'Ander', 'Laguardia', '19/12/2002', '695191570', 'ander.laguardia@ikasle.egibide.org', 'b2', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (40, '47586214Z', 'Ander', 'Jimenez de aberasturi', '10/04/2002', '610321407', 'ander.jimenezdeaberasturi@ikasle.egibide.org', 'b2', 'no', 'no', '');
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (41, '28745632B', 'Mario', 'Lopez', '22/06/2002', '674407233', 'mario.lopez@ikasle.egibide.org', 'b2', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (42, '85842658A', 'Adrian', 'Arrieta', '18/01/2002', '666522076', 'adrian.arrieta@ikasle.egibide.org', 'b1', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (43, '58741236Z', 'Izan', 'Barrio', '25/02/2002', '601291165', 'izan.barrio@ikasle.egibide.org', 'no', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (44, '58007845J', 'Juan Andres', 'Diaz', '14/07/2004', '625781223', 'juanandres.diaz@ikasle.egibide.org', 'no', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (45, '74558565R', 'Alain', 'Diaz', '11/11/2004', '638357575', 'alain.diaz@ikasle.egibide.org', 'b1', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (46, '47969285A', 'Eder', 'Espino', '20/12/2004', '645919359', 'eder.espino@ikasle.egibide.org', 'b1', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (47, '41856582J', 'Carlos', 'Fernandez', '24/10/2004', '646540781', 'carlos.fernandez@ikasle.egibide.org', 'b1', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (48, '25419632J', 'Bilal', 'Kerzazi', '05/01/2004', '631010869', 'bilal.kerzazi@ikasle.egibide.org', 'b2', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (49, '41862596J', 'Eneko', 'Molinuevo', '01/06/2004', '688636438', 'eneko.molinuevo@ikasle.egibide.org', 'c1', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (50, '26482684H', 'Daniel', 'Moralejo', '18/09/2003', '722705213', 'daniel.moralejo@ikasle.egibide.org', 'b2', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (51, '66266325J', 'Aimar', 'Ortizquintana', '06/06/2004', '697874873', 'aimar.ortizquintana@ikasle.egibide.org', 'a2', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (52, '55178569C', 'Manuel', 'Pricken', '14/10/1991', '615937307', 'manuel.pricken@ikasle.egibide.org', 'no', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (53, '95458552J', 'Ibai', 'Rojo', '30/04/2004', '664386154', 'ibai.rojo@ikasle.egibide.org', 'c1', 'no', 'no', NULL);
+INSERT INTO `ftc`.`alumnos` (`idalumnos`, `dni`, `nombre`, `apellidos`, `fec_nac`, `tlfn`, `email`, `euskera`, `coche`, `carnet`, `comentario`) VALUES (54, '26515925C', 'Eduardo', 'Vaquero', '28/10/1987', '665826012', 'eduardo.vaquero@ikasle.egibide.org', 'no', 'no', 'no', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`historico`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (1, '2015-2016');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (2, '2016-2017');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (3, '2017-2018');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (4, '2018-2019');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (5, '2019-2020');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (6, '2020-2021');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (7, '2021-2022');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (8, '2022-2023');
+INSERT INTO `ftc`.`historico` (`idhistorico`, `curso`) VALUES (9, '2023-2024');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`responsables`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`responsables` (`idresponsable`, `nombre`, `tlfn`, `email`, `empresa`) VALUES (1, 'Ana López', '655678901', 'ana.lopez@example.com', 1);
+INSERT INTO `ftc`.`responsables` (`idresponsable`, `nombre`, `tlfn`, `email`, `empresa`) VALUES (2, 'Carlos Sánchez', '677890123', 'carlos.sanchez@example.com', 2);
+INSERT INTO `ftc`.`responsables` (`idresponsable`, `nombre`, `tlfn`, `email`, `empresa`) VALUES (3, 'Isabel García', '644567890', 'isabel.garcia@example.com', 3);
+INSERT INTO `ftc`.`responsables` (`idresponsable`, `nombre`, `tlfn`, `email`, `empresa`) VALUES (4, 'David González', '633456789', 'david.gonzalez@example.com', 4);
+INSERT INTO `ftc`.`responsables` (`idresponsable`, `nombre`, `tlfn`, `email`, `empresa`) VALUES (5, 'Elena Ruiz', '688901234', 'elena.ruiz@example.com', 5);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`asignaciones`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (1, '4:27-17:15', 'Observaciones 1', 'Trabajo 1', 'NO', 7, 41, 4, 3);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (2, '2:55-8:02', 'Observaciones 2', 'Trabajo 2', 'NO', 7, 39, 1, 1);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (3, '23:30-12:07', 'Observaciones 3', 'Trabajo 3', 'NO', 4, 40, 3, 5);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (4, '19:28-23:30', 'Observaciones 4', 'Trabajo 4', 'SI', 7, 41, 3, 3);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (5, '8:55-14:19', 'Observaciones 5', 'Trabajo 5', 'SI', 9, 44, 4, 5);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (6, '13:36-9:09', 'Observaciones 6', 'Trabajo 6', 'SI', 8, 49, 2, 2);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (7, '16:43-11:13', 'Observaciones 7', 'Trabajo 7', 'SI', 4, 49, 1, 3);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (8, '16:26-3:26', 'Observaciones 8', 'Trabajo 8', 'SI', 4, 39, 3, 1);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (9, '5:47-6:52', 'Observaciones 9', 'Trabajo 9', 'SI', 6, 51, 5, 5);
+INSERT INTO `ftc`.`asignaciones` (`idasignaciones`, `horario`, `observaciones`, `trabajo`, `contrato`, `curso`, `alumno`, `responsable`, `empresa`) VALUES (10, '8:25-2:17', 'Observaciones 10', 'Trabajo 10', 'NO', 8, 48, 5, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`usuarios`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`usuarios` (`idusuarios`, `nombre`, `password`, `tipo_usuario`) VALUES (1, 'root', 'root', 'admin');
+INSERT INTO `ftc`.`usuarios` (`idusuarios`, `nombre`, `password`, `tipo_usuario`) VALUES (2, 'eva', '12345Abcde', 'user');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`grupos`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`grupos` (`idgrupos`, `abreviatura`, `denominacion`, `cic_form`, `tutor_fct`, `tutor_grupo`) VALUES (1, '1AASIR', 'primero de administracion de sistemas informa', 38, 11, 1);
+INSERT INTO `ftc`.`grupos` (`idgrupos`, `abreviatura`, `denominacion`, `cic_form`, `tutor_fct`, `tutor_grupo`) VALUES (2, '2AASIR', 'segundo de administracion de sistemas informa', 38, 3, 4);
+INSERT INTO `ftc`.`grupos` (`idgrupos`, `abreviatura`, `denominacion`, `cic_form`, `tutor_fct`, `tutor_grupo`) VALUES (3, '1DAM', 'primero de diseño de apli', 39, 12, 8);
+INSERT INTO `ftc`.`grupos` (`idgrupos`, `abreviatura`, `denominacion`, `cic_form`, `tutor_fct`, `tutor_grupo`) VALUES (4, '1DAW', 'primer de diseño de aplicaciones web', 40, 15, 5);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ftc`.`alumnos_has_grupos`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ftc`;
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (38, 1, 8);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (39, 2, 9);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (40, 3, 9);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (41, 4, 7);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (42, 3, 8);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (43, 2, 5);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (44, 2, 6);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (45, 4, 6);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (46, 4, 7);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (47, 1, 8);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (48, 2, 9);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (49, 3, 4);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (50, 2, 8);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (51, 1, 2);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (52, 2, 1);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (53, 3, 3);
+INSERT INTO `ftc`.`alumnos_has_grupos` (`idalumnos`, `idgrupos`, `curso`) VALUES (54, 4, 4);
+
+COMMIT;
+

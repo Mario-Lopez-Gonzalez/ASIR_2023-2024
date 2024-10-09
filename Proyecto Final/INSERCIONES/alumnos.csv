@@ -1,0 +1,19 @@
+idalumnos,dni,nombre,apellidos,fec_nac,tlfn,email,euskera,coche,carnet,comentario
+,58005875J,Ane,"Fernandez de retana",01/11/2004,644975433,ane.fernandezderetana@ikasle.egibide.org,si,si,si,NULL
+NULL,24554279Z,Ander,Laguardia,19/12/2002,695191570,ander.laguardia@ikasle.egibide.org,si,no,no,NULL
+NULL,47586214Z,Ander,"Jimenez de aberasturi",10/04/2002,610321407,ander.jimenezdeaberasturi@ikasle.egibide.org,si,no,no,NULL
+NULL,28745632B,Mario,Lopez,22/06/2002,674407233,mario.lopez@ikasle.egibide.org,si,no,no,NULL
+NULL,85842658A,Adrian,Arrieta,18/01/2002,666522076,adrian.arrieta@ikasle.egibide.org,si,si,si,NULL
+NULL,58741236Z,Izan,Barrio,25/02/2002,601291165,izan.barrio@ikasle.egibide.org,no,si,si,NULL
+NULL,58007845J,"Juan Andres",Diaz,14/07/2004,625781223,juanandres.diaz@ikasle.egibide.org,no,no,no,NULL
+NULL,74558565R,Alain,Diaz,11/11/2004,638357575,alain.diaz@ikasle.egibide.org,si,no,si,NULL
+NULL,47969285A,Eder,Espino,20/12/2004,645919359,eder.espino@ikasle.egibide.org,si,si,si,NULL
+NULL,41856582J,Carlos,Fernandez,24/10/2004,646540781,carlos.fernandez@ikasle.egibide.org,si,no,no,NULL
+NULL,25419632J,Bilal,Kerzazi,05/01/2004,631010869,bilal.kerzazi@ikasle.egibide.org,si,si,si,NULL
+NULL,41862596J,Eneko,Molinuevo,01/06/2004,688636438,eneko.molinuevo@ikasle.egibide.org,si,no,no,NULL
+NULL,26482684H,Daniel,Moralejo,18/09/2003,722705213,daniel.moralejo@ikasle.egibide.org,si,no,si,NULL
+NULL,21985548H,Asier,Oribe,22/12/2003,688628589,asier.oribe@ikasle.egibide.org,si,no,NULL,NULL
+NULL,66266325J,Aimar,Ortizquintana,06/06/2004,697874873,aimar.ortizquintana@ikasle.egibide.org,si,si,si,NULL
+NULL,55178569C,Manuel,Pricken,14/10/1991,615937307,manuel.pricken@ikasle.egibide.org,no,si,si,NULL
+NULL,95458552J,Ibai,Rojo,30/04/2004,664386154,ibai.rojo@ikasle.egibide.org,si,si,si,NULL
+NULL,26515925C,Eduardo,Vaquero,28/10/1987,665826012,eduardo.vaquero@ikasle.egibide.org,no,si,si,NULL

@@ -1,0 +1,42 @@
+idcic_form,nombre,abreviatura,nivel,fam_pro
+NULL,"Actividades de panadería y pastelería",APP,FPB,1
+NULL,"Informática y Comunicaciones",IC,FPB,2
+NULL,"Servicios Comerciales",SEC,FPB,3
+NULL,"Electricidad y Electrónica",EE,FPB,4
+NULL,"Fabricación Mecánica / Especialidad Soldadura y Calderería",FM-SC,FPB,5
+NULL,"Fabricación Mecánica / Especialidad Mecanizado",FM-EM,FPB,5
+NULL,"Instalaciones Electrotécnicas y Mecánica",IEM,FPB,4
+NULL,"Gestión Administrativa",GA,GM,6
+NULL,"Instalaciones Eléctricas y Automáticas",IEA,GM,4
+NULL,Mecanizado,MEC,GM,5
+NULL,"Soldadura y Calderería",SOC,GM,5
+NULL,"Cocina y Gastronomía",CG,GM,7
+NULL,"Servicios en Restauración",SR,GM,7
+NULL,"Peluquería y Cosmética Capilar",PCC,GM,8
+NULL,"Sistemas Microinformáticos y Redes",SMR,GM,2
+NULL,"Mantenimiento Electromecánico",ME,GM,9
+NULL,"Cuidados Auxiliares de Enfermería",CAE,GM,10
+NULL,"Atención a Personas en Situación de Dependencia",APSD,GM,11
+NULL,"Electromecánica de Vehículos Automóviles",EVA,GM,12
+NULL,"Administración y Finanzas",AF,GS,6
+NULL,"Asistencia a la Dirección",AD,GS,6
+NULL,"Marketing y Publicidad",MP,GS,3
+NULL,"Automatización y Robótica Industrial",ARI,GS,4
+NULL,"Mantenimiento Electrónico",ME,GS,4
+NULL,"Sistemas Electrotécnicos y Automatizados",SEA,GS,4
+NULL,"Sistemas de Telecomunicaciones e Informáticos",STI,GS,4
+NULL,"Diseño en Fabricación Mecánica",DFM,GS,5
+NULL,"Programación de la Producción en Fabricación Mecánica",PPFM,GS,5
+NULL,"Dirección de Cocina",DC,GS,7
+NULL,"Estética Integral y Bienestar",EIB,GS,8
+NULL,"Administración de Sistemas Informáticos en Red",ASIR,GS,2
+NULL,"Desarrollo de Aplicaciones Multiplataforma",DAM,GS,2
+NULL,"Desarrollo de Aplicaciones Web",DAW,GS,2
+NULL,"Mecatrónica Industrial",MI,GS,9
+NULL,"Laboratorio de Análisis y Control de Calidad",LACC,GS,13
+NULL,"Laboratorio Clínico y Biomédico",LCB,GS,10
+NULL,"Ortoprótesis y Productos de Apoyo",OPA,GS,10
+NULL,"Educación y Control Ambiental",ECA,GS,14
+NULL,"Integración Social",IS,GS,11
+NULL,"Promoción de Igualdad de Género",PIG,GS,11
+,Automoción,A,GS,12

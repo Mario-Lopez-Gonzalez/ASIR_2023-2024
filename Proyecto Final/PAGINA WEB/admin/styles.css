@@ -1,0 +1,485 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.purple-bar {
+    background-color: purple;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: white;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav-item {
+    margin: 0 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    z-index: 1;
+}
+
+.nav-item:hover .submenu {
+    display: block;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+.content {
+    padding: 20px;
+}
+
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para la barra de navegación */
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    position: relative;
+    float: left;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px 50px;
+    text-decoration: none;
+    color: #333;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+nav ul ul li {
+    float: none;
+}
+
+nav ul ul li a {
+    padding: 10px 20px;
+}
+
+nav ul li:hover > ul {
+    display: inherit;
+}
+
+p {
+    font-family: 'Monaco', monospace;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/* ESTILOS FORMULARIO ADD ALUMNOS */
+.form-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    flex: 1 1 50%; 
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 0;
+    margin-left: 5px; 
+}
+
+.label-group {
+    margin-right: 20px; 
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="email"],
+select,
+textarea {
+    width: calc(100% - 20px); 
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="checkbox"] {
+    margin-top: 10px;
+}
+
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Estilos específicos para la última fila */
+.form-row:last-child {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn img {
+    margin-right: 5px; 
+}
+
+/* ESTILOS FORMULARIO ADD EMPRESAS */
+
+/* Estilos específicos para el formulario de empresas */
+.form-row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    flex: 1 1 33.33%;
+    margin-bottom: 10px;
+}
+
+/* Estilos específicos para los campos de nombre y NIF */
+#razon_social,
+#nif {
+    flex-basis: 50%;
+    margin-bottom: 10px; 
+}
+
+/* Estilos específicos para los campos de población, provincia y código postal */
+#poblacion,
+#provincia,
+#codigo_postal {
+    flex-basis: 33.33%;
+}
+
+.cuerpo {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+h2 {
+    font-size: 200%; 
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h3.error {
+    color: #ff0000;
+    animation: bounce 0.5s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    text-align: center;
+}
+
+/* Center the "Gestionar" column */
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    text-align: center;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Additional style for "Tu usuario" */
+.tu-usuario {
+    background-color: darkblue;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-block; 
+    text-decoration: none; 
+}
+
+.tu-usuario:hover {
+    background-color: blue; 
+}
+
+.eliminar-link {
+    background-color: #ff0000;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-block;
+    text-decoration: none; 
+}
+
+.eliminar-link:hover {
+    background-color: #d60000; 
+}
+
+/* CSS AÑADIR DATOS */
+.anadir-datos {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: mintcream;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; 
+}
+
+.anadir-datos table {
+    margin: 0 auto;
+    width: 80%; 
+}
+
+.anadir-datos td {
+    padding: 10px;
+}
+
+.anadir-datos input[type="text"],
+.anadir-datos select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.anadir-datos label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.anadir-datos button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.anadir-datos button[type="reset"] {
+    background-color: #f44336;
+}
+
+.anadir-datos button:hover {
+    background-color: #45a049;
+}
+
+.anadir-datos button[type="reset"]:hover {
+    background-color: #d32f2f;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.anadir-datos {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 0px solid #333;
+}
+
+table tr:nth-child(even) {
+    background-color: #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+input[type="text"],
+input[type="email"],
+select {
+    width: 99%;
+    padding: 8px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+input[type="submit"] {
+    background-color: deeppink;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: hotpink;
+}
+
+th {
+    background-color: #3498db;
+}

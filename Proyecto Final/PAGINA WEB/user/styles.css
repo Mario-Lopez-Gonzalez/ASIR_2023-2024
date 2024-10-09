@@ -1,0 +1,278 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.purple-bar {
+    background-color: purple;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: white;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav-item {
+    margin: 0 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1;
+}
+
+.nav-item:hover .submenu {
+    display: block;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+.content {
+    padding: 20px;
+}
+
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para la barra de navegación */
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    position: relative;
+    float: left;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px 50px;
+    text-decoration: none;
+    color: #333;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+nav ul ul li {
+    float: none;
+}
+
+nav ul ul li a {
+    padding: 10px 20px;
+}
+
+nav ul li:hover > ul {
+    display: inherit;
+}
+
+.container {
+    margin: 10px 5%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Bloques Individuales */
+.busq {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f1;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
+.busq:hover {
+    background-color: #e0e0e0;
+}
+
+.busq h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.busq p {
+    margin: 5px 0;
+}
+
+.busq a {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input,
+select {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Popup */
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px; 
+    box-shadow: 0 0 21px rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    z-index: 2;
+}
+
+#popup-content {
+    background: #fff; 
+    padding: 20px;
+    border-radius: 9px;
+    text-align: left;
+    max-width: 100%;
+}
+
+.eliminar-link {
+    background-color: #ff0000;
+    color: #fff !important;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-block;
+    text-decoration: none; 
+    float: right; 
+    margin-left: 20px; 
+}
+
+.eliminar-link:hover {
+    background-color: #d60000;
+}
+
+input[type="reset"] {
+    background-color: red;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+input[type="reset"]:active {
+    filter: brightness(0.8);
+}
+
+/* CSS AÑADIR DATOS */
+.anadir-datos {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; 
+}
+
+.anadir-datos table {
+    margin: 0 auto;
+    width: 80%; 
+}
+
+.anadir-datos td {
+    padding: 10px;
+}
+
+.anadir-datos input[type="text"],
+.anadir-datos select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.anadir-datos label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.anadir-datos button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.anadir-datos button[type="reset"] {
+    background-color: #f44336;
+}
+
+.anadir-datos button:hover {
+    background-color: #45a049;
+}
+
+.anadir-datos button[type="reset"]:hover {
+    background-color: #d32f2f;
+}
+
+.busq a.ver-detalles {
+    background-color: #800080;
+    color: #fff; 
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.busq a.ver-detalles:hover {
+    background-color: #660066;
+}
